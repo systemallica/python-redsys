@@ -141,6 +141,10 @@ class Response:
     def message(self):
         return RESPONSE_MAP["0000"] if self.is_paid else RESPONSE_MAP[self.response]
 
+    @property
+    def parameters(self):
+        return self._parameters
+
     @staticmethod
     def clean_amount(value):
         return Decimal("{}.{}".format(str(value)[:-2], str(value)[-2:]))
