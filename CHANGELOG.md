@@ -1,5 +1,11 @@
 <!--next-version-placeholder-->
 
+## v1.1.0 (2021-10-19)
+
+## Changed
+
+- expose parameters in response
+
 ## v1.0.3 (2021-09-21)
 
 ## Fixed
