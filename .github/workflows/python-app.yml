@@ -14,16 +14,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python 3.9
+    - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
-        python-version: 3.9
-    - name: Setup Poetry
-      uses: Gr1N/setup-poetry@v4
+        python-version: 3.10
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
     - name: Install dependencies
       run: |
         poetry install
-        poetry add flake8 pytest
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
