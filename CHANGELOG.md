@@ -1,5 +1,8 @@
 <!--next-version-placeholder-->
 
+## v1.1.1 (2022-01-06)
+
+
 ## v1.1.0 (2021-10-19)
 
 ## Changed
