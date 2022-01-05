@@ -99,7 +99,7 @@ class Response:
             value: key for key, value in MERCHANT_PARAMETERS_MAP.items()
         }
         for key, value in parameters.items():
-            reversed_parameter = MERCHANT_PARAMETERS_MAP_REVERSE.get(key, None)
+            reversed_parameter = MERCHANT_PARAMETERS_MAP_REVERSE.get(key, key)
             clean = getattr(self, "clean_%s" % reversed_parameter, None)
             self._parameters[reversed_parameter] = clean(value) if clean else value
 
