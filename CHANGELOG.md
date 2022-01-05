@@ -2,6 +2,9 @@
 
 ## v1.1.1 (2022-01-06)
 
+## Fixed
+
+- protect against failure if new parameters are added to the API response
 
 ## v1.1.0 (2021-10-19)
 
