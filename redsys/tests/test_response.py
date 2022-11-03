@@ -8,7 +8,7 @@ class TestResponse:
             "Ds_MerchantCode": "1056",
             "Ds_Terminal": "1",
             "Ds_TransactionType": "1",
-            "Ds_Order": "000000001",
+            "Ds_Order": "000000000001",
             "Ds_Amount": "10054",
             "Ds_MerchantData": "test merchant data",
             "Ds_Currency": 978,

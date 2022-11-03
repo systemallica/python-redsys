@@ -33,7 +33,7 @@ class TestRedirectClient:
         encoded_params = self.client.encode_parameters(self.merchant_params)
         encoded_params_str = encoded_params.decode("UTF-8")
         assert encoded_params_str.endswith("ZWRzeXMvcmVzcG9uc2UifQ==")
-        assert len(encoded_params_str) == 624
+        assert len(encoded_params_str) == 628
 
     def test_decode_parameters(self):
         encoded_params = self.client.encode_parameters(self.merchant_params)
@@ -45,21 +45,21 @@ class TestRedirectClient:
         assert len(encrypted_order) == 16
         assert (
             str(encrypted_order)
-            == 'b"/\\x17\\\\6\\n\\x1aY\\xf3\\xb7\\\\\\xde\'d\\xa5\\x03\\xb7"'
+            == "b'/\\x17\\\\6\\n\\x1aY\\xf3\\xd7\\xa5\\x97\\xb9\\xb6\\xe0\\x8dH'"
         )
 
     def test_sign_hmac256(self):
         encrypted_order = self.client.encrypt_3DES(self.request.order)
         encoded_params = self.client.encode_parameters(self.merchant_params)
         signature = self.client.sign_hmac256(encrypted_order, encoded_params)
-        assert signature == b"eEW4YN7/kkNHRO0/HhXy9TppzHwF38+eZApKAagDI9A="
+        assert signature == b"a2F05DwuH5aXu5vD1IdjQ+NxaR0lPsRwksW1nr2Nzuw="
 
     def test_prepare_request(self):
         prepared_request = self.client.prepare_request(self.parameters)
         assert len(prepared_request.keys()) == 3
         assert (
             prepared_request.get("Ds_Signature")
-            == b"eEW4YN7/kkNHRO0/HhXy9TppzHwF38+eZApKAagDI9A="
+            == b"a2F05DwuH5aXu5vD1IdjQ+NxaR0lPsRwksW1nr2Nzuw="
         )
         pass
 
