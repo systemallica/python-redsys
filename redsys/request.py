@@ -108,7 +108,7 @@ class Request:
 
     @staticmethod
     def check_order(value):
-        if not re.match(r"[0-9]{4}[a-zA-Z0-9]{5}$", value):
+        if not re.match(r"[0-9]{4}[a-zA-Z0-9]{8}$", value):
             raise ValueError("order format is not valid.")
 
     @staticmethod
