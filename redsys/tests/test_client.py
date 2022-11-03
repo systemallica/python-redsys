@@ -18,7 +18,7 @@ class TestRedirectClient:
             "terminal": "1",
             "transaction_type": STANDARD_PAYMENT,
             "currency": EUR,
-            "order": "000000001",
+            "order": "000000000001",
             "amount": D("10.56489").quantize(D(".01"), ROUND_HALF_UP),
             "merchant_data": "test merchant data",
             "merchant_name": "Example Commerce",
@@ -69,7 +69,7 @@ class TestRedirectClient:
             "Ds_Terminal": "1",
             "Ds_TransactionType": "0",
             "Ds_Currency": 978,
-            "Ds_Order": "000000001",
+            "Ds_Order": "000000000001",
             "Ds_Amount": 1056,
             "Ds_MerchantData": "test merchant data",
         }
@@ -86,7 +86,7 @@ class TestRedirectClient:
             "Ds_Terminal": "1",
             "Ds_TransactionType": "0",
             "Ds_Currency": 978,
-            "Ds_Order": "000000001",
+            "Ds_Order": "000000000001",
             "Ds_Amount": 1056,
             "Ds_MerchantData": "test merchant data",
         }
