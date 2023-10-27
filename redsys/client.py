@@ -3,8 +3,10 @@ import hashlib
 import hmac
 import json
 import re
-from abc import ABC, abstractmethod
-from typing import Any, Dict
+from abc import ABC
+from abc import abstractmethod
+from typing import Any
+from typing import Dict
 
 from Crypto.Cipher import DES3
 
@@ -51,16 +53,12 @@ class Client(ABC):
         Generates the encrypted signature using the 3DES-encrypted order
         and base64-encoded merchant parameters
         """
-        signature = hmac.new(
-            encrypted_order, merchant_parameters, hashlib.sha256
-        ).digest()
+        signature = hmac.new(encrypted_order, merchant_parameters, hashlib.sha256).digest()
         return base64.b64encode(signature)
 
     def encrypt_3DES(self, order: str) -> bytes:
         """Encrypts(3DES algorithm) the payment order using the secret key"""
-        cipher = DES3.new(
-            base64.b64decode(self.secret_key), DES3.MODE_CBC, IV=b"\0\0\0\0\0\0\0\0"
-        )
+        cipher = DES3.new(base64.b64decode(self.secret_key), DES3.MODE_CBC, IV=b"\0\0\0\0\0\0\0\0")
         # the cipher needs to be passed 16 bytes,
         # so "order" must be 16 bytes long,
         # therefore we left-justify adding ceros
@@ -96,16 +94,12 @@ class RedirectClient(Client):
         """
         decoded_parameters = self.decode_parameters(merchant_parameters.encode())
         response = Response(decoded_parameters)
-        calculated_signature = self.generate_signature(
-            response.order, merchant_parameters.encode()
-        )
+        calculated_signature = self.generate_signature(response.order, merchant_parameters.encode())
         # Remove any non-alphanumeric characters from the signature
         not_alphanumeric = re.compile("[^a-zA-Z0-9]")
         safe_signature = re.sub(not_alphanumeric, "", signature)
 
-        safe_calculated_signature = re.sub(
-            not_alphanumeric, "", calculated_signature.decode()
-        )
+        safe_calculated_signature = re.sub(not_alphanumeric, "", calculated_signature.decode())
         if safe_signature != safe_calculated_signature:
             raise ValueError("The provided signature is not valid.")
         return response

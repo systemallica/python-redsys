@@ -15,9 +15,7 @@ class TestResponse:
         }
         response = Response(parameters)
         assert response.code == 90
-        assert (
-            response.message == "Transacción autorizada para pagos y preautorizaciones"
-        )
+        assert response.message == "Transacción autorizada para pagos y preautorizaciones"
         assert len(response._parameters.keys()) == 8
         assert response.is_authorized is True
         assert response.is_paid is True

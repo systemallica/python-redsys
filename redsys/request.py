@@ -1,8 +1,11 @@
 import re
 from decimal import Decimal
-from typing import Any, Dict
+from typing import Any
+from typing import Dict
 
-from redsys.constants import CURRENCIES, LANGUAGES, TRANSACTIONS
+from redsys.constants import CURRENCIES
+from redsys.constants import LANGUAGES
+from redsys.constants import TRANSACTIONS
 
 # General parameters
 MERCHANT_CODE = "Ds_Merchant_MerchantCode"
@@ -99,9 +102,7 @@ class Request:
         parameters = {}
         for key, value in self._parameters.items():
             prepare = getattr(self, "prepare_%s" % key, None)
-            parameters[MERCHANT_PARAMETERS_MAP[key]] = (
-                prepare(value) if prepare else value
-            )
+            parameters[MERCHANT_PARAMETERS_MAP[key]] = prepare(value) if prepare else value
         return parameters
 
     @staticmethod
