@@ -1,5 +1,6 @@
 from decimal import Decimal
-from typing import Any, Dict
+from typing import Any
+from typing import Dict
 
 RESPONSE = "Ds_Response"
 DATE = "Ds_Date"
@@ -95,9 +96,7 @@ class Response:
     _parameters: Dict[str, Any] = {}
 
     def __init__(self, parameters: Dict[str, Any]):
-        MERCHANT_PARAMETERS_MAP_REVERSE = {
-            value: key for key, value in MERCHANT_PARAMETERS_MAP.items()
-        }
+        MERCHANT_PARAMETERS_MAP_REVERSE = {value: key for key, value in MERCHANT_PARAMETERS_MAP.items()}
         for key, value in parameters.items():
             reversed_parameter = MERCHANT_PARAMETERS_MAP_REVERSE.get(key, key)
             clean = getattr(self, "clean_%s" % reversed_parameter, None)
@@ -110,9 +109,7 @@ class Response:
     def __setattr__(self, key: str, value: Any):
         if key in MERCHANT_PARAMETERS_MAP:
             clean = getattr(self, "clean_%s" % MERCHANT_PARAMETERS_MAP[key], None)
-            self._parameters[MERCHANT_PARAMETERS_MAP[key]] = (
-                clean(value) if clean else value
-            )
+            self._parameters[MERCHANT_PARAMETERS_MAP[key]] = clean(value) if clean else value
 
     @property
     def is_authorized(self):
@@ -144,4 +141,4 @@ class Response:
 
     @staticmethod
     def clean_amount(value):
-        return Decimal("{}.{}".format(str(value)[:-2], str(value)[-2:]))
+        return Decimal(f"{str(value)[:-2]}.{str(value)[-2:]}")

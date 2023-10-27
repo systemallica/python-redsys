@@ -4,7 +4,8 @@ from decimal import Decimal as D
 import pytest
 
 from redsys.client import RedirectClient
-from redsys.constants import EUR, STANDARD_PAYMENT
+from redsys.constants import EUR
+from redsys.constants import STANDARD_PAYMENT
 from redsys.request import Request
 
 
@@ -43,10 +44,7 @@ class TestRedirectClient:
     def test_encrypt_3DES(self):
         encrypted_order = self.client.encrypt_3DES(self.request.order)
         assert len(encrypted_order) == 16
-        assert (
-            str(encrypted_order)
-            == "b'/\\x17\\\\6\\n\\x1aY\\xf3\\xd7\\xa5\\x97\\xb9\\xb6\\xe0\\x8dH'"
-        )
+        assert str(encrypted_order) == "b'/\\x17\\\\6\\n\\x1aY\\xf3\\xd7\\xa5\\x97\\xb9\\xb6\\xe0\\x8dH'"
 
     def test_sign_hmac256(self):
         encrypted_order = self.client.encrypt_3DES(self.request.order)
@@ -57,10 +55,7 @@ class TestRedirectClient:
     def test_prepare_request(self):
         prepared_request = self.client.prepare_request(self.parameters)
         assert len(prepared_request.keys()) == 3
-        assert (
-            prepared_request.get("Ds_Signature")
-            == b"a2F05DwuH5aXu5vD1IdjQ+NxaR0lPsRwksW1nr2Nzuw="
-        )
+        assert prepared_request.get("Ds_Signature") == b"a2F05DwuH5aXu5vD1IdjQ+NxaR0lPsRwksW1nr2Nzuw="
         pass
 
     def test_create_response_valid(self):
@@ -75,9 +70,7 @@ class TestRedirectClient:
         }
         encoded_params = self.client.encode_parameters(merchant_parameters)
         signature = self.client.generate_signature(self.request.order, encoded_params)
-        response = self.client.create_response(
-            signature.decode(), encoded_params.decode()
-        )
+        response = self.client.create_response(signature.decode(), encoded_params.decode())
         assert response._parameters.get("order") == merchant_parameters.get("Ds_Order")
 
     def test_create_response_invalid(self):
