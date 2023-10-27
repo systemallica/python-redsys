@@ -36,6 +36,10 @@ PAN = "Ds_Merchant_Pan"
 EXPIRY_DATE = "Ds_Merchant_ExpiryDate"
 CVV2 = "Ds_Merchant_Cvv2"
 
+# BIZUM PAYMENT parameters
+MOBILE_NUMBER = "Ds_Merchant_Bizum_MobileNumber"
+PAYMENT_METHOD = "Ds_Merchant_PayMethods"
+
 MERCHANT_PARAMETERS_MAP = {
     "merchant_code": MERCHANT_CODE,
     "terminal": TERMINAL,
@@ -59,6 +63,8 @@ MERCHANT_PARAMETERS_MAP = {
     "pan": PAN,
     "expiry_date": EXPIRY_DATE,
     "cvv2": CVV2,
+    "mobile_number": MOBILE_NUMBER,
+    "payment_method": PAYMENT_METHOD,
 }
 
 
