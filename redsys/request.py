@@ -2,9 +2,12 @@ import re
 from decimal import Decimal
 from typing import Any
 
+from redsys.constants import COF_TRANSACTIONS
 from redsys.constants import CURRENCIES
 from redsys.constants import LANGUAGES
+from redsys.constants import SCA_EXEMPTIONS
 from redsys.constants import TRANSACTIONS
+from redsys.constants import TYPES_OF_COF
 
 # General parameters
 MERCHANT_CODE = "Ds_Merchant_MerchantCode"
@@ -13,6 +16,15 @@ TRANSACTION_TYPE = "Ds_Merchant_TransactionType"
 ORDER = "Ds_Merchant_Order"
 CURRENCY = "Ds_Merchant_Currency"
 AMOUNT = "Ds_Merchant_Amount"
+
+# Tokenization - Credential on File (COF)
+MERCHANT_IDENTIFIER = "Ds_Merchant_Identifier"
+MERCHANT_COF_INI = "Ds_Merchant_COF_INI"
+MERCHANT_COF_TYPE = "Ds_Merchant_COF_TYPE"
+MERCHANT_COF_TXNID = "Ds_Merchant_Cof_Txnid"
+# Merchant-Initiated Transactions (MITs)
+MERCHANT_EXCEP_SCA = "Ds_Merchant_Excep_Sca"
+MERCHANT_DIRECTPAYMENT = "Ds_Merchant_DirectPayment"
 
 # Recurring transaction parameters
 SUM_TOTAL = "Ds_Merchant_SumTotal"
@@ -56,6 +68,12 @@ MERCHANT_PARAMETERS_MAP = {
     "authorization_code": AUTHORIZATION_CODE,
     "merchant_data": MERCHANT_DATA,
     "merchant_name": MERCHANT_NAME,
+    "merchant_identifier": MERCHANT_IDENTIFIER,
+    "merchant_cof_txnid": MERCHANT_COF_TXNID,
+    "merchant_cof_ini": MERCHANT_COF_INI,
+    "merchant_cof_type": MERCHANT_COF_TYPE,
+    "merchant_excep_sca": MERCHANT_EXCEP_SCA,
+    "merchant_directpayment": MERCHANT_DIRECTPAYMENT,
     "product_description": PRODUCT_DESCRIPTION,
     "titular": TITULAR,
     "merchant_url": MERCHANT_URL,
@@ -134,8 +152,28 @@ class Request:
 
     @staticmethod
     def check_sum_total(value):
-        if type(value) is not Decimal:
+        if not isinstance(value, Decimal):
             raise TypeError("sum_total must be defined as decimal.Decimal.")
+
+    @staticmethod
+    def check_authorization_code(value):
+        if not re.match(r"^[a-zA-Z0-9]{1,6}$", value):
+            raise ValueError("authorization_code format is not valid.")
+
+    @staticmethod
+    def check_merchant_cof_ini(value):
+        if value not in COF_TRANSACTIONS:
+            raise ValueError("merchant_cof_ini is not valid.")
+
+    @staticmethod
+    def check_merchant_cof_type(value):
+        if value not in TYPES_OF_COF:
+            raise ValueError("merchant_cof_type is not valid.")
+
+    @staticmethod
+    def check_merchant_excep_sca(value):
+        if value not in SCA_EXEMPTIONS:
+            raise ValueError("merchant_excep_sca is not valid.")
 
     @staticmethod
     def check_merchant_data(value):
