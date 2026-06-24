@@ -24,8 +24,8 @@ response parameters. That's what less dependant means.
 You can add python-redsys to your project with pip:
 > pip install python-redsys
 
-Or with poetry:
-> poetry add python-redsys
+Or with uv:
+> uv add python-redsys
 
 ### 1. Instantiate the redirect client
 

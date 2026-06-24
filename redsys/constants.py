@@ -1,5 +1,6 @@
 # Currencies
-""" Euro """
+"""Euro"""
+
 EUR = 978
 """ United States dollar """
 USD = 840

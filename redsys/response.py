@@ -1,6 +1,5 @@
 from decimal import Decimal
 from typing import Any
-from typing import Dict
 
 RESPONSE = "Ds_Response"
 DATE = "Ds_Date"
@@ -93,13 +92,13 @@ class Response:
     Defines a response
     """
 
-    _parameters: Dict[str, Any] = {}
+    _parameters: dict[str, Any] = {}
 
-    def __init__(self, parameters: Dict[str, Any]):
+    def __init__(self, parameters: dict[str, Any]):
         MERCHANT_PARAMETERS_MAP_REVERSE = {value: key for key, value in MERCHANT_PARAMETERS_MAP.items()}
         for key, value in parameters.items():
             reversed_parameter = MERCHANT_PARAMETERS_MAP_REVERSE.get(key, key)
-            clean = getattr(self, "clean_%s" % reversed_parameter, None)
+            clean = getattr(self, f"clean_{reversed_parameter}", None)
             self._parameters[reversed_parameter] = clean(value) if clean else value
 
     def __getattr__(self, item: str) -> Any:
@@ -108,7 +107,7 @@ class Response:
 
     def __setattr__(self, key: str, value: Any):
         if key in MERCHANT_PARAMETERS_MAP:
-            clean = getattr(self, "clean_%s" % MERCHANT_PARAMETERS_MAP[key], None)
+            clean = getattr(self, f"clean_{MERCHANT_PARAMETERS_MAP[key]}", None)
             self._parameters[MERCHANT_PARAMETERS_MAP[key]] = clean(value) if clean else value
 
     @property

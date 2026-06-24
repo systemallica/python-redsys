@@ -6,7 +6,6 @@ import re
 from abc import ABC
 from abc import abstractmethod
 from typing import Any
-from typing import Dict
 
 from Crypto.Cipher import DES3
 
@@ -38,12 +37,12 @@ class Client(ABC):
         raise NotImplementedError
 
     @staticmethod
-    def encode_parameters(parameters: Dict[str, Any]) -> bytes:
+    def encode_parameters(parameters: dict[str, Any]) -> bytes:
         """Encodes the merchant parameters in base64"""
         return base64.b64encode(json.dumps(parameters).encode())
 
     @staticmethod
-    def decode_parameters(parameters: bytes) -> Dict[str, Any]:
+    def decode_parameters(parameters: bytes) -> dict[str, Any]:
         """Decodes the merchant parameters from base64"""
         return json.loads(base64.b64decode(parameters).decode())
 
@@ -69,7 +68,7 @@ class Client(ABC):
 
 
 class RedirectClient(Client):
-    def prepare_request(self, parameters: Dict[str, Any]) -> Dict[str, Any]:
+    def prepare_request(self, parameters: dict[str, Any]) -> dict[str, Any]:
         """Takes the merchant parameters and returns the necessary parameters
         to make the POST request to Redsys"""
         request = Request(parameters)
