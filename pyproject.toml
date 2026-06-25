@@ -1,0 +1,69 @@
+[project]
+name = "python-redsys"
+version = "1.2.0"
+description = "A simple, clean and less dependant client to handle payments through Redsys."
+authors = [
+    { name = "Andrés Reverón Molina", email = "andres@reveronmolina.me" },
+    { name = "David Díaz", email = "d.diazp@gmail.com" },
+]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.10,<3.15"
+classifiers = [
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "pycryptodome>=3.23.0,<4",
+]
+
+[project.urls]
+Homepage = "https://github.com/systemallica/python-redsys"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.1.0",
+    "pre-commit>=4.6.0",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "python-semantic-release>=10.5.3",
+    "ruff>=0.15.19",
+]
+
+[tool.uv.build-backend]
+module-name = "redsys"
+module-root = ""
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E","F","UP","B","SIM","I"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint.isort]
+force-single-line = true
+
+[tool.semantic_release]
+version_variables = [
+  "redsys/__init__.py:__version__",
+]
+version_toml = ["pyproject.toml:project.version"]
+build_command = "uv build"
+
+[tool.semantic_release.publish]
+upload_to_vcs_release = true
+
+[build-system]
+requires = ["uv_build>=0.11.24,<0.12"]
+build-backend = "uv_build"
