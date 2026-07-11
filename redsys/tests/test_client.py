@@ -3,10 +3,28 @@ from decimal import Decimal as D
 
 import pytest
 
+from redsys.client import Client
 from redsys.client import RedirectClient
 from redsys.constants import EUR
 from redsys.constants import STANDARD_PAYMENT
 from redsys.request import Request
+
+
+class TestClient:
+    def test_abstract_create_response_raises_not_implemented(self):
+        class DummyClient(Client):
+            def create_response(self, signature, parameters):
+                return super().create_response(signature, parameters)
+
+            def prepare_request(self, request):
+                return super().prepare_request(request)
+
+        client = DummyClient("secret")
+        with pytest.raises(NotImplementedError):
+            client.create_response("sig", "params")
+
+        with pytest.raises(NotImplementedError):
+            client.prepare_request({})
 
 
 class TestRedirectClient:
