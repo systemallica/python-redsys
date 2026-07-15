@@ -112,3 +112,7 @@ TRANSACTIONS = [
     RECURRING_DEFERRED_PREAUTHORIZATION,
     SUCCESSIVE_RECURRING_TRANSACTION,
 ]
+
+# Payment with BIZUM
+""" Documentation: La letra "z" minúscula para el pago con BIZUM. """
+BIZUM_PAYMENT_METHOD = "z"
